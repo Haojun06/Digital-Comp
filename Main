@@ -1,1 +1,2 @@
-print("HI")
+print("Welcome to Spotify Mood-Based Playlist Suggester!")
+mood = input("Enter your mood (Happy, Sad, Focus, Workout): ")
