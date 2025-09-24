@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- Sets the document language to English. Helpful for accessibility and SEO. -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Makes the page responsive (scales properly on mobile).-->
     <title>MoodTunes - Music Recommendation Based on Mood</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!--Imports Font Awesome icons (the smile, heart, brain, etc. icons you’re using on the buttons).-->
 </head>
 <body>
     <div class="container">
@@ -15,10 +18,11 @@
         </header>
         
         <section class="mood-selector">
+        <!--Groups related content (this one is for choosing moods).-->
             <h2>How are you feeling today?</h2>
             
             <div class="mood-buttons">
-                <button class="mood-btn happy" data-mood="happy">
+                <button class="mood-btn happy" data-mood="happy">A custom attribute you can use in JavaScript to know which mood the user clicked.-->
                     <i class="fas fa-smile"></i> Happy
                 </button>
                 <button class="mood-btn sad" data-mood="sad">
@@ -46,15 +50,19 @@
             
             <div class="custom-mood">
                 <input type="text" id="custom-mood-input" placeholder="Or describe your mood in your own words...">
+                <!--Lets users type their own mood instead of clicking a preset button.-->
                 <p class="examples">Examples: "I just got a promotion", "I'm feeling lonely", "Need motivation to workout"</p>
             </div>
             
             <button class="submit-btn" id="find-music-btn">
                 <i class="fas fa-music"></i> Find Music for My Mood
+                <!--Important: your JavaScript (script.js) will listen for clicks on this button.-->
             </button>
+            <!--A main action button that triggers the recommendation system.-->
         </section>
         
         <section class="results" id="results-section">
+        <!--Where music recommendations will appear.-->
             <h2>Recommended Songs for <span id="mood-display">Your Mood</span></h2>
             
             <div class="song-grid" id="song-container">
