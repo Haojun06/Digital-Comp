@@ -1,4 +1,4 @@
-
+// Song database categorized by mood
 const songDatabase = {
     happy: [
         { title: "Can't Stop the Feeling", artist: "Justin Timberlake", emoji: "🎉" },
@@ -58,6 +58,7 @@ const songDatabase = {
     ]
 };
 
+// Mood keyword mapping
 const moodKeywords = {
     happy: ["happy", "joy", "excite", "celebrate", "good", "great", "awesome", "wonderful", "amazing", "bliss"],
     sad: ["sad", "depress", "blue", "unhappy", "cry", "tear", "grief", "heartbreak", "lonely", "miss"],
@@ -69,6 +70,7 @@ const moodKeywords = {
     nostalgic: ["nostalgic", "memory", "remember", "past", "old", "retro", "vintage", "childhood", "yearn"]
 };
 
+// DOM elements
 const moodButtons = document.querySelectorAll('.mood-btn');
 const customMoodInput = document.getElementById('custom-mood-input');
 const findMusicBtn = document.getElementById('find-music-btn');
@@ -78,27 +80,35 @@ const songContainer = document.getElementById('song-container');
 
 let selectedMood = '';
 
+// Set mood when buttons are clicked
 moodButtons.forEach(button => {
     button.addEventListener('click', () => {
-
+        // Remove active class from all buttons
         moodButtons.forEach(btn => btn.classList.remove('active'));
         
+        // Add active class to clicked button
         button.classList.add('active');
-
+        
+        // Set selected mood
         selectedMood = button.getAttribute('data-mood');
         
+        // Clear custom input
         customMoodInput.value = '';
     });
 });
 
+// Handle custom mood input
 customMoodInput.addEventListener('input', () => {
     if (customMoodInput.value.trim() !== '') {
+        // Remove active class from all buttons
         moodButtons.forEach(btn => btn.classList.remove('active'));
         
+        // Set selected mood to custom
         selectedMood = 'custom';
     }
 });
 
+// Find music based on mood
 findMusicBtn.addEventListener('click', () => {
     if (selectedMood === '' && customMoodInput.value.trim() === '') {
         alert('Please select or describe your mood first!');
@@ -107,14 +117,17 @@ findMusicBtn.addEventListener('click', () => {
     
     let moodToUse = selectedMood;
     
+    // If using custom mood, map it to one of our categories
     if (selectedMood === 'custom') {
         const customMood = customMoodInput.value.trim().toLowerCase();
         moodToUse = categorizeCustomMood(customMood);
     }
     
+    // Display the results
     displaySongs(moodToUse);
 });
 
+// Categorize custom mood input
 function categorizeCustomMood(customMood) {
     for (const [mood, keywords] of Object.entries(moodKeywords)) {
         for (const keyword of keywords) {
@@ -124,17 +137,23 @@ function categorizeCustomMood(customMood) {
         }
     }
     
+    // Default to happy for unrecognized moods
     return 'happy';
 }
 
+// Display songs based on mood
 function displaySongs(mood) {
+    // Update mood display text
     const moodText = mood.charAt(0).toUpperCase() + mood.slice(1);
     moodDisplay.textContent = moodText;
-
+    
+    // Clear previous songs
     songContainer.innerHTML = '';
     
+    // Get songs for the selected mood
     const songs = songDatabase[mood];
     
+    // Create song cards
     songs.forEach(song => {
         const songCard = document.createElement('div');
         songCard.className = 'song-card';
@@ -150,8 +169,9 @@ function displaySongs(mood) {
         songContainer.appendChild(songCard);
     });
     
-
+    // Show results section
     resultsSection.style.display = 'block';
     
+    // Scroll to results
     resultsSection.scrollIntoView({ behavior: 'smooth' });
 }
