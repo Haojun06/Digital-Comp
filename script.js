@@ -82,7 +82,6 @@ const songDatabase = {
     ]
 };
 
-
 // Mood keyword mapping
 const moodKeywords = {
     happy: ["happy", "joy", "excite", "celebrate", "good", "great", "awesome", "wonderful", "amazing", "bliss"],
@@ -108,27 +107,17 @@ let selectedMood = '';
 // Set mood when buttons are clicked
 moodButtons.forEach(button => {
     button.addEventListener('click', () => {
-        // Remove active class from all buttons
-        moodButtons.forEach(btn => btn.classList.remove('active'));
-        
-        // Add active class to clicked button
-        button.classList.add('active');
-        
-        // Set selected mood
-        selectedMood = button.getAttribute('data-mood');
-        
-        // Clear custom input
-        customMoodInput.value = '';
+        moodButtons.forEach(btn => btn.classList.remove('active')); // remove active from all
+        button.classList.add('active'); // highlight selected
+        selectedMood = button.getAttribute('data-mood'); // set mood
+        customMoodInput.value = ''; // clear custom input
     });
 });
 
 // Handle custom mood input
 customMoodInput.addEventListener('input', () => {
     if (customMoodInput.value.trim() !== '') {
-        // Remove active class from all buttons
         moodButtons.forEach(btn => btn.classList.remove('active'));
-        
-        // Set selected mood to custom
         selectedMood = 'custom';
     }
 });
@@ -139,17 +128,16 @@ findMusicBtn.addEventListener('click', () => {
         alert('Please select or describe your mood first!');
         return;
     }
-    
-    let moodToUse = selectedMood;
-    
-    // If using custom mood, map it to one of our categories
+
+    let moodResult;
     if (selectedMood === 'custom') {
         const customMood = customMoodInput.value.trim().toLowerCase();
-        moodToUse = categorizeCustomMood(customMood);
+        moodResult = categorizeCustomMood(customMood);
+    } else {
+        moodResult = { mood: selectedMood, understood: true };
     }
-    
-    // Display the results
-    displaySongs(moodToUse);
+
+    displaySongs(moodResult.mood, moodResult.understood);
 });
 
 // Categorize custom mood input
@@ -157,32 +145,35 @@ function categorizeCustomMood(customMood) {
     for (const [mood, keywords] of Object.entries(moodKeywords)) {
         for (const keyword of keywords) {
             if (customMood.includes(keyword)) {
-                return mood;
+                return { mood, understood: true };
             }
         }
     }
-    
-    // Default to happy for unrecognized moods
-    return 'happy';
+    return { mood: 'happy', understood: false }; // fallback
 }
 
 // Display songs based on mood
-function displaySongs(mood) {
-    // Update mood display text
+function displaySongs(mood, understood = true) {
     const moodText = mood.charAt(0).toUpperCase() + mood.slice(1);
     moodDisplay.textContent = moodText;
-    
-    // Clear previous songs
-    songContainer.innerHTML = '';
-    
-    // Get songs for the selected mood
+
+    songContainer.innerHTML = ''; // clear previous
+
+    // Add notice if mood not recognized
+    const oldNotice = resultsSection.querySelector(".notice");
+    if (oldNotice) oldNotice.remove();
+
+    if (!understood) {
+        const notice = document.createElement("p");
+        notice.className = "notice";
+        notice.innerHTML = `We couldn’t recognize your mood, so we’ll recommend songs for <strong>Happy</strong> 😊`;
+        resultsSection.insertAdjacentElement("afterbegin", notice);
+    }
+
     const songs = songDatabase[mood];
-    
-    // Create song cards
     songs.forEach(song => {
         const songCard = document.createElement('div');
         songCard.className = 'song-card';
-        
         songCard.innerHTML = `
             <div class="album-art">${song.emoji}</div>
             <div class="song-info">
@@ -190,13 +181,9 @@ function displaySongs(mood) {
                 <p>${song.artist}</p>
             </div>
         `;
-        
         songContainer.appendChild(songCard);
     });
-    
-    // Show results section
+
     resultsSection.style.display = 'block';
-    
-    // Scroll to results
     resultsSection.scrollIntoView({ behavior: 'smooth' });
 }

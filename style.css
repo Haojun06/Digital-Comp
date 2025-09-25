@@ -277,7 +277,15 @@ footer {
     color: #666;
     font-size: 0.9rem;
 }
-
+.notice {
+    background: #fff3cd;
+    color: #856404;
+    padding: 10px;
+    border: 1px solid #ffeeba;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
 /* Responsive design */
 /* Tablet */
 @media (max-width: 768px) {
