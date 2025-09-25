@@ -1,3 +1,4 @@
+/* Colors variables */
 :root {
     --primary: #6d5dfc;
     --secondary: #8f7dfd;
@@ -17,6 +18,7 @@
     --melancholic: #34495e;
 }
 
+/* Global resets */
 * {
     margin: 0;
     padding: 0;
@@ -24,6 +26,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Body styling */
 body {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     color: var(--dark);
@@ -37,6 +40,7 @@ body {
     padding: 20px;
 }
 
+/* Header */
 header {
     text-align: center;
     padding: 40px 0;
@@ -55,6 +59,7 @@ header p {
     opacity: 0.8;
 }
 
+/* Select mood */
 .mood-selector {
     background-color: white;
     border-radius: 15px;
@@ -69,6 +74,7 @@ header p {
     color: var(--dark);
 }
 
+/* Mood buttons */
 .mood-buttons {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -76,6 +82,7 @@ header p {
     margin-bottom: 30px;
 }
 
+/* Style for all mood button */
 .mood-btn {
     padding: 15px;
     border: none;
@@ -90,15 +97,18 @@ header p {
     gap: 8px;
 }
 
+/* Button effect */
 .mood-btn:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Icons */
 .mood-btn i {
     font-size: 1.5rem;
 }
 
+/* Mood button colors */
 .mood-btn.happy {
     background-color: var(--happy);
     color: #333;
@@ -139,6 +149,7 @@ header p {
     color: white;
 }
 
+/* Custom mood input */
 .custom-mood {
     margin-top: 25px;
 }
@@ -157,12 +168,14 @@ header p {
     border-color: var(--primary);
 }
 
+/* Example text */
 .examples {
     font-size: 0.9rem;
     color: #777;
     text-align: center;
 }
 
+/* Submit button */
 .submit-btn {
     display: block;
     width: 100%;
@@ -188,6 +201,7 @@ header p {
     margin-right: 8px;
 }
 
+/* Results */
 .results {
     display: none;
     background-color: white;
@@ -198,6 +212,7 @@ header p {
     animation: fadeIn 0.5s ease;
 }
 
+/* Animation */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -209,6 +224,7 @@ header p {
     color: var(--primary);
 }
 
+/* Song grid and card */
 .song-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -227,6 +243,7 @@ header p {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
+/* Album artwork */
 .album-art {
     width: 100%;
     height: 200px;
@@ -238,6 +255,7 @@ header p {
     color: white;
 }
 
+/* Song info text */
 .song-info {
     padding: 20px;
 }
@@ -252,6 +270,7 @@ header p {
     font-size: 0.95rem;
 }
 
+/* Footer */
 footer {
     text-align: center;
     padding: 20px;
@@ -259,6 +278,8 @@ footer {
     font-size: 0.9rem;
 }
 
+/* Responsive design */
+/* Tablet */
 @media (max-width: 768px) {
     .mood-buttons {
         grid-template-columns: repeat(2, 1fr);
@@ -273,6 +294,7 @@ footer {
     }
 }
 
+/* Mobile phone */
 @media (max-width: 480px) {
     .mood-buttons {
         grid-template-columns: 1fr;
